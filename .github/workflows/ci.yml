@@ -5,12 +5,8 @@ permissions:
   pull-requests: write
 
 on:
-  push:
-    branches:
-      [main, develop, citest, 60hz, networking]
-  pull_request:
-    branches:
-      [main, develop]
+  # Keep this workflow available for manual use only.
+  # The public repo should not auto-build on pushes or PRs.
   workflow_dispatch:
 
 concurrency:
