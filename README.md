@@ -2,13 +2,13 @@
   <img src=".github/assets/readme-header.png" alt="ZH Thrax Edition" width="400">
 </p>
 
-# GeneralsOnlineZH: Dr. Thrax Edition
+# Generals: Dr. Thrax Edition
 
 **Zero Hour client mod for skirmish and challenge maps: user-controllable AI allies, fixed Air Force General scripts, higher render FPS, a modernized radar/minimap, better camera controls, and rendering/performance fixes.**
 
 Personal C&C Generals: Zero Hour client mod. It started as a skirmish/challenge build and is published to see if anyone wants it maintained in public.
 
-Working title: Dr. Thrax Edition. The executable is still `GeneralsOnlineZH.exe`.
+The executable is `Generals_Thrax.exe`.
 
 Download: [latest release](https://github.com/philb12312/GeneralsZH_Thrax_Edition/releases/latest)
 
@@ -47,9 +47,9 @@ TheSuperHackers and GeneralsOnline did the hard part. This repo is an experiment
 
 1. Install Command & Conquer: Generals - Zero Hour.
 2. Use patch 1.04. Steam already does this.
-3. Download `GeneralsOnlineZH.exe` from the [latest release](https://github.com/philb12312/GeneralsZH_Thrax_Edition/releases/latest).
+3. Download `Generals_Thrax.exe` from the [latest release](https://github.com/philb12312/GeneralsZH_Thrax_Edition/releases/latest).
 4. Put it in the Zero Hour install folder, next to `generals.exe` / `game.dat`.
-5. Run `GeneralsOnlineZH.exe`.
+5. Run `Generals_Thrax.exe`.
 
 It does not replace your saves, replays, maps, or mods.
 

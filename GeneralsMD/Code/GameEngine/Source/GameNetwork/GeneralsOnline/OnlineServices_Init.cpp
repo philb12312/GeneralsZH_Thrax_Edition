@@ -360,13 +360,13 @@ void NGMP_OnlineServicesManager::StartVersionCheck(std::function<void(bool bSucc
 	Char moduleDir[_MAX_PATH];
 	GetModuleFileName(NULL, moduleDir, sizeof(moduleDir));
 	PathRemoveFileSpecA(moduleDir);
-	std::string filePath = std::string(moduleDir) + "\\GeneralsOnlineZH_60.exe";
+	std::string filePath = std::string(moduleDir) + "\\Generals_Thrax.exe";
 	std::ifstream file(filePath, std::ios::binary | std::ios::ate);
 	std::streamsize size = file.tellg();
 
 	if (!file.is_open() || size <= 0)
 	{
-		NetworkLog(ELogVerbosity::LOG_RELEASE, "[NGMP] StartVersionCheck: Failed to open GeneralsOnlineZH_60.exe at %s", filePath.c_str());
+		NetworkLog(ELogVerbosity::LOG_RELEASE, "[NGMP] StartVersionCheck: Failed to open Generals_Thrax.exe at %s", filePath.c_str());
 		fnCallback(false, false);
 		return;
 	}

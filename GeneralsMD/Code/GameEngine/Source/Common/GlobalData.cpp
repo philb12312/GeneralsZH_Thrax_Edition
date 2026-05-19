@@ -1313,8 +1313,8 @@ UnsignedInt GlobalData::generateExeCRC()
 		Char buffer[ _MAX_PATH ];
 		GetModuleFileName( nullptr, buffer, sizeof( buffer ) );
 
-		// Read GeneralsOnlineZH_60.exe in the same directory as the running EXE.
-		// The alt exe is just a launcher — the real game binary everyone runs is GeneralsOnlineZH_60.exe.
+		// Read Generals_Thrax.exe in the same directory as the running EXE.
+		// Use the public fork binary name for CRC computation.
 		// Use fopen() since TheFileSystem->openFile() cannot handle absolute paths with drive letters.
 		{
 			Char altPath[ _MAX_PATH ];
@@ -1325,13 +1325,13 @@ UnsignedInt GlobalData::generateExeCRC()
 			if (lastSlash)
 			{
 				*(lastSlash + 1) = '\0';
-				strncat(altPath, "GeneralsOnlineZH_60.exe", _MAX_PATH - strlen(altPath) - 1);
+				strncat(altPath, "Generals_Thrax.exe", _MAX_PATH - strlen(altPath) - 1);
 			}
 
 			FILE* altFile = fopen(altPath, "rb");
 			if (!altFile)
 			{
-				DEBUG_CRASH(("Could not open GeneralsOnlineZH_60.exe for CRC computation"));
+				DEBUG_CRASH(("Could not open Generals_Thrax.exe for CRC computation"));
 				return 0;
 			}
 
@@ -1342,7 +1342,7 @@ UnsignedInt GlobalData::generateExeCRC()
 				exeCRC.computeCRC(crcBlock, (Int)amtRead);
 			}
 			fclose(altFile);
-			DEBUG_LOG(("EXE CRC (from GeneralsOnlineZH_60.exe) is 0x%8.8X", exeCRC.get()));
+			DEBUG_LOG(("EXE CRC (from Generals_Thrax.exe) is 0x%8.8X", exeCRC.get()));
 		}
 	}
 #endif
