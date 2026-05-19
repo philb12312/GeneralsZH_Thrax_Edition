@@ -1,5 +1,5 @@
 ﻿<p align="center">
-  <img src=".github/assets/readme-header.png" alt="ZH Thrax Edition" width="400">
+  <img src=".github/assets/new_hero.png" alt="ZH Thrax Edition hero image" width="1000">
 </p>
 
 # Generals: Dr. Thrax Edition
