@@ -6,7 +6,7 @@
 
 **Zero Hour client mod for skirmish and challenge maps: user-controllable AI allies, fixed Air Force General scripts, higher render FPS, a modernized radar/minimap, better camera controls, and rendering/performance fixes.**
 
-Personal C&C Generals: Zero Hour client mod. It started as a skirmish/challenge build and is published to see if anyone wants it maintained in public.
+Personal C&C Generals: Zero Hour client mod. It started as a skirmish/challenge build and is published by two C&C-enthusiasts to see if anyone wants it maintained in public.
 
 The executable is `Generals_Thrax.exe`.
 
