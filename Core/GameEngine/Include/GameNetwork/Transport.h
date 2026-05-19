@@ -1,0 +1,90 @@
+/*
+**	Command & Conquer Generals(tm)
+**	Copyright 2025 Electronic Arts Inc.
+**
+**	This program is free software: you can redistribute it and/or modify
+**	it under the terms of the GNU General Public License as published by
+**	the Free Software Foundation, either version 3 of the License, or
+**	(at your option) any later version.
+**
+**	This program is distributed in the hope that it will be useful,
+**	but WITHOUT ANY WARRANTY; without even the implied warranty of
+**	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+**	GNU General Public License for more details.
+**
+**	You should have received a copy of the GNU General Public License
+**	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+////////////////////////////////////////////////////////////////////////////////
+//																																						//
+//  (c) 2001-2003 Electronic Arts Inc.																				//
+//																																						//
+////////////////////////////////////////////////////////////////////////////////
+
+// Transport.h ///////////////////////////////////////////////////////////////
+// Transport layer - a thin layer around a UDP socket, with queues.
+// Author: Matthew D. Campbell, July 2001
+
+#pragma once
+
+// NGMP NOTE: We have multiple transports now, so UDPTransport is what Transport was. It's the legacy, direct connection transport the original game used. Transport is now a base class.#include "GameNetwork/udp.h"
+#include "GameNetwork/NetworkDefs.h"
+
+class Transport //: public MemoryPoolObject
+{
+	//MEMORY_POOL_GLUE_WITH_USERLOOKUP_CREATE(Transport, "Transport")
+public:
+
+	Transport();
+	virtual ~Transport();
+
+	virtual Bool init(AsciiString ip, UnsignedShort port) = 0;
+	virtual Bool init( UnsignedInt ip, UnsignedShort port ) = 0;
+	virtual void reset( void ) = 0;
+	virtual Bool update( void ) = 0;									///< Call this once a GameEngine tick, regardless of whether the frame advances.
+
+	virtual Bool doRecv( void ) = 0;		///< call this to service the receive packets
+	virtual Bool doSend( void ) = 0;		///< call this to service the send queue.
+
+	virtual Bool queueSend(UnsignedInt addr, UnsignedShort port, const UnsignedByte *buf, Int len /*,
+		NetMessageFlags flags, Int id */) = 0;				///< Queue a packet for sending to the specified address and port.  This will be sent on the next update() call.
+
+	virtual Bool allowBroadcasts(Bool val) = 0;
+
+	// Latency insertion and packet loss
+	void setLatency( Bool val ) { m_useLatency = val; }
+	void setPacketLoss( Bool val ) { m_usePacketLoss = val; }
+
+	// Bandwidth metrics
+	Real getIncomingBytesPerSecond( void );
+	Real getIncomingPacketsPerSecond( void );
+	Real getOutgoingBytesPerSecond( void );
+	Real getOutgoingPacketsPerSecond( void );
+	Real getUnknownBytesPerSecond( void );
+	Real getUnknownPacketsPerSecond( void );
+
+	TransportMessage m_outBuffer[MAX_MESSAGES];
+	TransportMessage m_inBuffer[MAX_MESSAGES];
+
+#if defined(RTS_DEBUG)
+	DelayedTransportMessage m_delayedInBuffer[MAX_MESSAGES];
+#endif
+
+protected:
+	// Latency insertion and packet loss
+	Bool m_useLatency;
+	Bool m_usePacketLoss;
+
+	// Bandwidth metrics
+	UnsignedInt m_incomingBytes[MAX_TRANSPORT_STATISTICS_SECONDS];
+	UnsignedInt m_unknownBytes[MAX_TRANSPORT_STATISTICS_SECONDS];
+	UnsignedInt m_outgoingBytes[MAX_TRANSPORT_STATISTICS_SECONDS];
+	UnsignedInt m_incomingPackets[MAX_TRANSPORT_STATISTICS_SECONDS];
+	UnsignedInt m_unknownPackets[MAX_TRANSPORT_STATISTICS_SECONDS];
+	UnsignedInt m_outgoingPackets[MAX_TRANSPORT_STATISTICS_SECONDS];
+	Int m_statisticsSlot;
+	UnsignedInt m_lastSecond;
+
+	Bool isGeneralsPacket( TransportMessage *msg );
+};
